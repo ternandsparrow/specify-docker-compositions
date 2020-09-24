@@ -1,0 +1,47 @@
+version: '3'
+services:
+  specify7:
+    image: specifyconsortium/specify7-service:docker
+    volumes:
+      - "specify6:/opt/Specify:ro"
+      - "static-files:/volumes/static-files"
+    environment:
+      - DATABASE_NAME=sp7demofish
+      - DATABASE_HOST=mariadb
+      - MASTER_NAME=master
+      - MASTER_PASSWORD=master
+      - SECRET_KEY="change this to some unique random string"
+      - REPORT_RUNNER_HOST=report-runner
+      - REPORT_RUNNER_PORT=8080
+      - SP7_DEBUG=true
+      - LOG_LEVEL=DEBUG
+
+  mariadb:
+    image: mariadb
+    volumes:
+      - "database:/var/lib/mysql"
+    environment:
+      - MYSQL_ROOT_PASSWORD=root
+
+  specify6:
+    image: specifyconsortium/specify6-service:6.8.00
+    volumes:
+      - "specify6:/volumes/Specify"
+
+  nginx:
+    image: nginx
+    ports:
+      - "8000:80"
+    volumes:
+      - "static-files:/volumes/static-files:ro"
+      - "specify6:/volumes/specify6:ro"
+
+      - "./nginx/specify.conf:/etc/nginx/conf.d/default.conf:ro"
+
+  report-runner:
+    image: specifyconsortium/report-runner
+      
+volumes:
+  database:
+  specify6:
+  static-files:
