@@ -1,8 +1,9 @@
-version: '3'
+version: '3.7'
 services:
 
   specify7:
     image: specifyconsortium/specify7-service:docker
+    init: true
     volumes:
       - "specify6:/opt/Specify:ro"
       - "static-files:/volumes/static-files"
@@ -12,9 +13,9 @@ services:
       - DATABASE_NAME=your-specify-database
       - MASTER_NAME=a-mysql-specify-master-user
       - MASTER_PASSWORD=the-corresponding-password
-      - SECRET_KEY="change this to some unique random string"
-      - WEB_ATTACHMENT_URL=http://your-asset-server/web-asset-store.xml
-      - WEB_ATTACHMENT_KEY="your asset server access key"
+      - SECRET_KEY=change this to some unique random string
+      - ASSET_SERVER_URL=http://your-asset-server/web-asset-store.xml
+      - ASSET_SERVER_KEY=your asset server access key
       - REPORT_RUNNER_HOST=report-runner
       - REPORT_RUNNER_PORT=8080
       - LOG_LEVEL=WARNING
