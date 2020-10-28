@@ -53,7 +53,7 @@ This should be set to some random string.
 
 See https://docs.djangoproject.com/en/2.2/ref/settings/#secret-key
 
-### WEB_ATTACHMENT_URL and WEB_ATTACHMENT_KEY
+### ASSET_SERVER_URL and ASSET_SERVER_KEY
 
 These should be set to the same values as in your Specify 6
 configuration for using the Specify asset server. If you are not using
@@ -77,3 +77,40 @@ should only be used during troubleshooting and not during general
 use. Django applications leak memory when operated continuously in
 debug mode.
 
+## All in One
+
+The setup in the *all-in-one* provides a complete Specify system
+including Specify 7, database, asset server, report runner and
+webserver on a single host. Since all services are included it
+requires minimal configuration. First, a seed database must be
+provided in the form of a Specify SQL backup file. It should not
+include any `CREATE DATABASE ...;` or `USE ...;` statements and should
+be placed in the *seed-database* directory. It will be automatically
+restored into the database server. Next, a few variables must be
+configured in the *docker-compose.yml* file:
+
+### Under "specify7:"
+
+#### SECRET_KEY
+
+This should be set to some random string.
+
+See https://docs.djangoproject.com/en/2.2/ref/settings/#secret-key
+
+#### ASSET_SERVER_KEY
+
+This should also be set to some random string, but must match the
+value in `ATTACHMENT_KEY` under `asset-server:`.
+
+### Under "asset-server:"
+
+#### SERVER_NAME
+
+Set this to the DNS name or IP address of the host running Docker
+Compose. It should match the name that will be used to navigate to the
+system.
+
+#### ATTACHMENT_KEY
+
+This should be set to a random string. It must match the value in
+`ASSET_SERVER_KEY` under `specify7:`.
