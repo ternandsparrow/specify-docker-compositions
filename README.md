@@ -6,7 +6,7 @@ scenarios. The idea is that you can choose a scenario, enter the
 corresponding directory, make the necessary adjustments and then run
 `docker-compose up -d` to obtain a working setup.
 
-There are currently two setups defined here:
+There are currently three setups defined here:
 
 1) [Just Specify 7](just-specify7/README.md) includes only the elements needed
 to run Specify 7 in an environment with an existing Specify 6 MySQL
