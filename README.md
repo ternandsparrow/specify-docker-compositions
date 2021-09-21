@@ -14,7 +14,7 @@ database server in place.
 
 2) [All in One](all-in-one/README.md) includes a database server and
 an asset server, producing a usable setup starting only with a SQL
-backup file from a Specify 6.8.00 system.
+backup file from a Specify 6.8.01 system.
 
 3) [Multiple Databases](multiple-databases/README.md) extends the
 *Just Specify 7* example to illustrate using name based virtual hosting
