@@ -64,9 +64,10 @@ services:
       {% endfor %}
 
       - "./nginx.conf:/etc/nginx/conf.d/default.conf:ro"
-      - "/root/letsencrypt:/etc/letsencrypt:ro"
-      - "/etc/ssl/certs:/etc/ssl/certs:ro"
-      
+      - "/etc/letsencrypt:/etc/letsencrypt:ro"
+      - "/etc/ssl/certs/dhparam.pem:/etc/ssl/certs/dhparam.pem:ro"
+      - "/var/www:/var/www:ro"
+
   redis:
     restart: unless-stopped
     image: redis:6.0
