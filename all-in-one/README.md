@@ -63,7 +63,7 @@ debug mode.
 ## Running
 
 Starting and stopping the Specify 7 via Docker Compose is accomplished
-by executing commands from within the *just-specify7* directory.
+by executing commands from within the *all-in-one* directory.
 
 Run `docker-compose up -d` to bring up Specify 7. Stop by running
 `docker-compose stop`.
