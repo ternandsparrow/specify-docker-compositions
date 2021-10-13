@@ -27,7 +27,7 @@ services:
       - MASTER_NAME=master
       - MASTER_PASSWORD=master
       - SECRET_KEY=change this to some unique random string
-      - ASSET_SERVER_URL=http://asset-server:8080/web_asset_store.xml
+      - ASSET_SERVER_URL=http://your.docker.host.address/web_asset_store.xml
       - ASSET_SERVER_KEY=your asset server access key
       - REPORT_RUNNER_HOST=report-runner
       - REPORT_RUNNER_PORT=8080
@@ -51,7 +51,7 @@ services:
       - MASTER_NAME=master
       - MASTER_PASSWORD=master
       - SECRET_KEY=change this to some unique random string
-      - ASSET_SERVER_URL=http://asset-server:8080/web_asset_store.xml
+      - ASSET_SERVER_URL=http://your.docker.host.address/web_asset_store.xml
       - ASSET_SERVER_KEY=your asset server access key
       - REPORT_RUNNER_HOST=report-runner
       - REPORT_RUNNER_PORT=8080
@@ -67,7 +67,7 @@ services:
     volumes:
       - "attachments:/home/specify/attachments"
     environment:
-      - SERVER_NAME=set to docker-compose host name
+      - SERVER_NAME=your.docker.host.address
       - SERVER_PORT=80
       - ATTACHMENT_KEY=your asset server access key
       - DEBUG_MODE=false
