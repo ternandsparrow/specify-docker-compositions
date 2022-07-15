@@ -3,7 +3,7 @@ services:
 
   specify7:
     restart: unless-stopped
-    image: specifyconsortium/specify7-service:v7.6
+    image: specifyconsortium/specify7-service:v7.7
     init: true
     volumes:
       - "specify6:/opt/Specify:ro"
@@ -26,7 +26,7 @@ services:
 
   specify7-worker:
     restart: unless-stopped
-    image: specifyconsortium/specify7-service:v7.6
+    image: specifyconsortium/specify7-service:v7.7
     command: ve/bin/celery -A specifyweb worker -l INFO --concurrency=1
     init: true
     volumes:

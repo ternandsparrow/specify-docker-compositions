@@ -30,6 +30,15 @@ version you will need to make the following adjustments:
 1. Update the `image:` attribute in the Specify 7 sections of your
    `docker-compose.yml` file to select the new version of Specify 7.
 
+## Changes for Specify 7.6
+
+The recipes provided in this repository have been updated for the
+latest release of Specify 7. If you are upgrading from a previous
+version you will need to make the following adjustments:
+
+1. Update the `image:` attribute in the Specify 7 sections of your
+   `docker-compose.yml` file to select the new version of Specify 7.
+
 2. If you are updating the version of Specify 6 at the same time you
    will have to update the `image:` attribute in the Specify 6 section of your
    `docker-compose.yml` file to select the new version of Specify 6 as
