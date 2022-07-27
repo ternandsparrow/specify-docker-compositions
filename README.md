@@ -21,7 +21,7 @@ backup file from a Specify 6.8.01 system.
 of two Specify databases. The example can be extended to an arbitrary
 number of databases.
 
-## Changes for Specify 7.6
+## Changes for Specify 7.7
 
 The recipes provided in this repository have been updated for the
 latest release of Specify 7. If you are upgrading from a previous
