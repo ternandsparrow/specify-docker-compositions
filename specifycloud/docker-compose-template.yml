@@ -12,6 +12,9 @@ services:
     volumes:
       - "{{ serverdef.sp6 }}:/opt/Specify:ro"
       - "static-files-{{ server }}:/volumes/static-files"
+      {% if 'settings_file' in serverdef %}
+      - "{{ serverdef.settings_file }}:/opt/specify7/settings/local_specify_settings.py:ro"
+      {% endif %}
     env_file: defaults.env
     environment:
       - DATABASE_NAME={{ database }}
