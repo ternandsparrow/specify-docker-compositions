@@ -1,3 +1,4 @@
 {% for server in servers %}
-docker-compose run --rm {{ server }}-worker sp7setup
+docker-compose up -d {{ server }} {{ server }}-worker
+sleep 30
 {% endfor %}
