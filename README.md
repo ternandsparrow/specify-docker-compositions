@@ -21,9 +21,14 @@ backup file from a Specify 6.8.01 system.
 of two Specify databases. The example can be extended to an arbitrary
 number of databases.
 
-Additionally, there is a
-[Development Docker Composition](https://github.com/specify/specify7/wiki/Docker-Workflow-for-Development)
-if you would like to add new features to Specify 7 or do debugging.
+Alternative options:
+- [Development Docker Composition](https://github.com/specify/specify7/wiki/Docker-Workflow-for-Development)
+  if you would like to add new features to Specify 7 or do debugging.
+- [Specify 7 Test Panel](https://github.com/specify/specify7-test-panel)
+  for deploying several versions of Specify 7 using a user interface.
+- [Specify Cloud Composition](https://github.com/specify/docker-compositions/tree/production/specifycloud),
+  which is used by our Specify Cloud servers and show
+  an example of generating a `docker-compose.yml` from a JSON spec.
 
 ## Changes for Specify 7.7
 
