@@ -21,6 +21,10 @@ backup file from a Specify 6.8.01 system.
 of two Specify databases. The example can be extended to an arbitrary
 number of databases.
 
+Additionally, there is a
+[Development Docker Composition](https://github.com/specify/specify7/wiki/Docker-Workflow-for-Development)
+if you would like to add new features to Specify 7 or do debugging.
+
 ## Changes for Specify 7.7
 
 The recipes provided in this repository have been updated for the
