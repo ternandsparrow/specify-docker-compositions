@@ -30,6 +30,19 @@ Alternative options:
   which is used by our Specify Cloud servers and show
   an example of generating a `docker-compose.yml` from a JSON spec.
 
+## Changes for [Schema 2.10](https://discourse.specifysoftware.org/t/specify-6-8-02-and-schema-2-10-updates-release-notes/830)
+
+If you are upgrading from a previous
+version you will need to make the following adjustments:
+
+1. Once you have updated the database using Specify 6.8.02, you
+   will have to update the `image:` attribute in the Specify 6 section of your
+   `docker-compose.yml` file to select the new version of Specify 6 (`6.8.02`) as
+   well. You will also need to connect to the database with a copy of
+   the new version of Specify 6 to update the database to that
+   version, or import an updated back up of the database into the
+   MySQL/Mariadb server.
+
 ## Changes for Specify 7.7
 
 The recipes provided in this repository have been updated for the
