@@ -72,4 +72,4 @@ If you want the services to start when the host
 system boots, add `restart: unless-stopped` to all of the services in
 `docker-compose.yml`.
 
-Refer to the documentation for [Docker](docs.docker.com) for more.
+Refer to the documentation for [Docker](https://docs.docker.com) for more.
