@@ -2,7 +2,7 @@ This Dockerfile is used for creating specify6-service images for use with in Spe
 
 Build the image, replacing the versions as appropriate:
 ```
-docker build -t specifyconsortium/specify6-service:6.8.02 --build-arg version=6802 .
+docker build -t specifyconsortium/specify6-service:6.8.03 --build-arg version=6803 --platform linux/amd64 .
 ```
 
 Push the image:
