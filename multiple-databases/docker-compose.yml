@@ -96,7 +96,7 @@ services:
       - SP7_DEBUG=false
       
   specify6:
-    image: specifyconsortium/specify6-service:6.8.02
+    image: specifyconsortium/specify6-service:6.8.03
     volumes:
       - "specify6:/volumes/Specify"
 
