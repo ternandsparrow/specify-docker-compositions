@@ -16,7 +16,7 @@ Contains targets to generate `docker-compose.yml` and `nginx.conf`.
 
 ## spcloudservers.json
 This file definies all of the servers to be instantiated. Here is an example with comments:
-```
+```json
 {
     "servers": {
         "sp7demofish": {                 # The server name will be sp7demofish.
@@ -54,7 +54,7 @@ This file definies all of the servers to be instantiated. Here is an example wit
 All of the common environment settings for the Specify 7 servers and workers are defined here.
 May be overidden by values in the `env` section of the `spcloudservers.json` file.
 
-```
+```properties
 DATABASE_HOST=10.132.219.186
 DATABASE_PORT=3306
 MASTER_NAME=Master
