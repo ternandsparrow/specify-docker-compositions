@@ -28,7 +28,7 @@ services:
       - MASTER_NAME=master
       - MASTER_PASSWORD=master
       - SECRET_KEY=blabla
-      - ASSET_SERVER_URL=http://host.docker.internal/web_asset_store.xml
+      - ASSET_SERVER_URL=http://specify.environmentalmonitoringgroup.com.au/web_asset_store.xml
       - ASSET_SERVER_KEY=blabla
       - REPORT_RUNNER_HOST=report-runner
       - REPORT_RUNNER_PORT=8080
@@ -52,7 +52,7 @@ services:
       - MASTER_NAME=master
       - MASTER_PASSWORD=master
       - SECRET_KEY=blabla
-      - ASSET_SERVER_URL=http://host.docker.internal/web_asset_store.xml
+      - ASSET_SERVER_URL=http://specify.environmentalmonitoringgroup.com.au/web_asset_store.xml
       - ASSET_SERVER_KEY=blabla
       - REPORT_RUNNER_HOST=report-runner
       - REPORT_RUNNER_PORT=8080
@@ -68,7 +68,7 @@ services:
     volumes:
       - "attachments:/home/specify/attachments"
     environment:
-      - SERVER_NAME=host.docker.internal
+      - SERVER_NAME=specify.environmentalmonitoringgroup.com.au
       - SERVER_PORT=80
       - ATTACHMENT_KEY=blabla
       - DEBUG_MODE=true
