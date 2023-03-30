@@ -27,15 +27,15 @@ services:
       - DATABASE_NAME=specify
       - MASTER_NAME=master
       - MASTER_PASSWORD=master
-      - SECRET_KEY=change this to some unique random string
+      - SECRET_KEY=blabla
       - ASSET_SERVER_URL=http://host.docker.internal/web_asset_store.xml
-      - ASSET_SERVER_KEY=your asset server access key
+      - ASSET_SERVER_KEY=blabla
       - REPORT_RUNNER_HOST=report-runner
       - REPORT_RUNNER_PORT=8080
       - CELERY_BROKER_URL=redis://redis/0
       - CELERY_RESULT_BACKEND=redis://redis/1
-      - LOG_LEVEL=WARNING
-      - SP7_DEBUG=false
+      - LOG_LEVEL=DEBUG
+      - SP7_DEBUG=true
 
   specify7-worker:
     restart: unless-stopped
@@ -51,15 +51,15 @@ services:
       - DATABASE_NAME=specify
       - MASTER_NAME=master
       - MASTER_PASSWORD=master
-      - SECRET_KEY=change this to some unique random string
+      - SECRET_KEY=blabla
       - ASSET_SERVER_URL=http://host.docker.internal/web_asset_store.xml
-      - ASSET_SERVER_KEY=your asset server access key
+      - ASSET_SERVER_KEY=blabla
       - REPORT_RUNNER_HOST=report-runner
       - REPORT_RUNNER_PORT=8080
       - CELERY_BROKER_URL=redis://redis/0
       - CELERY_RESULT_BACKEND=redis://redis/1
-      - LOG_LEVEL=WARNING
-      - SP7_DEBUG=false
+      - LOG_LEVEL=DEBUG
+      - SP7_DEBUG=true
 
   asset-server:
     restart: unless-stopped
@@ -70,8 +70,8 @@ services:
     environment:
       - SERVER_NAME=host.docker.internal
       - SERVER_PORT=80
-      - ATTACHMENT_KEY=your asset server access key
-      - DEBUG_MODE=false
+      - ATTACHMENT_KEY=blabla
+      - DEBUG_MODE=true
 
   specify6:
     image: specifyconsortium/specify6-service:6.8.03
@@ -80,7 +80,7 @@ services:
 
   nginx:
     restart: unless-stopped
-    image: nginx
+    image: nginx:1.23.4
     ports:
       - "80:80"
     volumes:
