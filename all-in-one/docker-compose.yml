@@ -1,0 +1,104 @@
+version: '3.7'
+services:
+
+  mariadb:
+    restart: unless-stopped
+    image: mariadb
+    command: --max_allowed_packet=1073741824
+    volumes:
+      - "database:/var/lib/mysql"
+      - "./seed-database:/docker-entrypoint-initdb.d"
+    environment:
+      - MYSQL_ROOT_PASSWORD=root
+      - MYSQL_DATABASE=specify
+      - MYSQL_USER=master
+      - MYSQL_PASSWORD=master
+
+  specify7:
+    restart: unless-stopped
+    image: specifyconsortium/specify7-service:v7
+    init: true
+    volumes:
+      - "specify6:/opt/Specify:ro"
+      - "static-files:/volumes/static-files"
+    environment:
+      - DATABASE_HOST=mariadb
+      - DATABASE_PORT=3306
+      - DATABASE_NAME=specify
+      - MASTER_NAME=master
+      - MASTER_PASSWORD=master
+      - SECRET_KEY=change this to some unique random string
+      - ASSET_SERVER_URL=http://host.docker.internal/web_asset_store.xml
+      - ASSET_SERVER_KEY=your asset server access key
+      - REPORT_RUNNER_HOST=report-runner
+      - REPORT_RUNNER_PORT=8080
+      - CELERY_BROKER_URL=redis://redis/0
+      - CELERY_RESULT_BACKEND=redis://redis/1
+      - LOG_LEVEL=WARNING
+      - SP7_DEBUG=false
+
+  specify7-worker:
+    restart: unless-stopped
+    image: specifyconsortium/specify7-service:v7
+    command: ve/bin/celery -A specifyweb worker -l INFO --concurrency=1
+    init: true
+    volumes:
+      - "specify6:/opt/Specify:ro"
+      - "static-files:/volumes/static-files"
+    environment:
+      - DATABASE_HOST=mariadb
+      - DATABASE_PORT=3306
+      - DATABASE_NAME=specify
+      - MASTER_NAME=master
+      - MASTER_PASSWORD=master
+      - SECRET_KEY=change this to some unique random string
+      - ASSET_SERVER_URL=http://host.docker.internal/web_asset_store.xml
+      - ASSET_SERVER_KEY=your asset server access key
+      - REPORT_RUNNER_HOST=report-runner
+      - REPORT_RUNNER_PORT=8080
+      - CELERY_BROKER_URL=redis://redis/0
+      - CELERY_RESULT_BACKEND=redis://redis/1
+      - LOG_LEVEL=WARNING
+      - SP7_DEBUG=false
+
+  asset-server:
+    restart: unless-stopped
+    image: specifyconsortium/specify-asset-service
+    init: true
+    volumes:
+      - "attachments:/home/specify/attachments"
+    environment:
+      - SERVER_NAME=host.docker.internal
+      - SERVER_PORT=80
+      - ATTACHMENT_KEY=your asset server access key
+      - DEBUG_MODE=false
+
+  specify6:
+    image: specifyconsortium/specify6-service:6.8.03
+    volumes:
+      - "specify6:/volumes/Specify"
+
+  nginx:
+    restart: unless-stopped
+    image: nginx
+    ports:
+      - "80:80"
+    volumes:
+      - "static-files:/volumes/static-files:ro"
+      - "specify6:/volumes/specify6:ro"
+
+      - "./nginx/specify.conf:/etc/nginx/conf.d/default.conf:ro"
+
+  report-runner:
+    restart: unless-stopped
+    image: specifyconsortium/report-runner
+
+  redis:
+    restart: unless-stopped
+    image: redis:6.0
+
+volumes:
+  attachments: # the asset-servers attachment files
+  database: # the data directory for maniadb
+  specify6: # provides Specify 6 files to Specify 7 and the web server
+  static-files: # provides Specify 7 static files to the web server

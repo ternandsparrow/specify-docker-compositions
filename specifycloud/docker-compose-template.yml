@@ -1,0 +1,86 @@
+version: '3.7'
+
+services:
+
+  {% for server, serverdef in servers.items() %}
+  {% set database = serverdef.database if 'database' in serverdef else server.replace('-', '_') %}
+  {{ server }}:
+    image: specifyconsortium/specify7-service:{{ serverdef.sp7 }}
+    command: ["ve/bin/gunicorn", "-w", "1", "--threads", "5", "-b", "0.0.0.0:8000", "-t", "300", "specifyweb_wsgi"]
+    init: true
+    restart: unless-stopped
+    volumes:
+      - "{{ serverdef.sp6 }}:/opt/Specify:ro"
+      - "static-files-{{ server }}:/volumes/static-files"
+      {% if 'settings_file' in serverdef %}
+      - "{{ serverdef.settings_file }}:/opt/specify7/settings/local_specify_settings.py:ro"
+      {% endif %}
+    env_file: defaults.env
+    environment:
+      - DATABASE_NAME={{ database }}
+      - ASSET_SERVER_COLLECTION={{ database }}
+      {% if 'env' in serverdef %}
+      {% for var, val in serverdef.env.items() %}
+      - {{ var }}={{ val }}
+      {% endfor %}
+      {% endif %}
+
+  {{ server }}-worker:
+    image: specifyconsortium/specify7-service:{{ serverdef.sp7 }}
+    command: ve/bin/celery -A specifyweb worker -l INFO --concurrency=1 -Q {{ database }}
+    init: true
+    restart: unless-stopped
+    volumes:
+      - "{{ serverdef.sp6 }}:/opt/Specify:ro"
+      - "static-files-{{ server }}:/volumes/static-files"
+    env_file: defaults.env
+    environment:
+      - DATABASE_NAME={{ database }}
+      - ASSET_SERVER_COLLECTION={{ database }}
+      {% if 'env' in serverdef %}
+      {% for var, val in serverdef.env.items() %}
+      - {{ var }}={{ val }}
+      {% endfor %}
+      {% endif %}
+  {% endfor %}
+      
+  {% for ver, tag in sp6versions.items() %}
+  {{ ver }}:
+    image: specifyconsortium/specify6-service:{{ tag }}
+    volumes:
+      - "{{ ver }}:/volumes/Specify"
+  {% endfor %}
+
+  nginx:
+    image: nginx
+    restart: unless-stopped
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      {% for server in servers %}
+      - "static-files-{{ server }}:/volumes/static-files-{{ server }}:ro"
+      {% endfor %}
+      
+      {% for ver in sp6versions %}
+      - "{{ ver }}:/volumes/{{ ver }}:ro"
+      {% endfor %}
+
+      - "./nginx.conf:/etc/nginx/conf.d/default.conf:ro"
+      - "/etc/letsencrypt:/etc/letsencrypt:ro"
+      - "/etc/ssl/certs/dhparam.pem:/etc/ssl/certs/dhparam.pem:ro"
+      - "/var/www:/var/www:ro"
+
+  redis:
+    restart: unless-stopped
+    image: redis:6.0
+      
+volumes:
+  {% for ver in sp6versions %}
+  {{ ver }}:
+  {% endfor %}
+
+  {% for server in servers %}
+  static-files-{{ server }}:
+  {% endfor %}
+
