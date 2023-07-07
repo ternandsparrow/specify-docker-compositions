@@ -3,7 +3,7 @@ services:
 
   mariadb:
     restart: unless-stopped
-    image: mariadb
+    image: mariadb:10.11
     command: --max_allowed_packet=1073741824
     volumes:
       - "database:/var/lib/mysql"
