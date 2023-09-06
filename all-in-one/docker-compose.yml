@@ -99,6 +99,6 @@ services:
 
 volumes:
   attachments: # the asset-servers attachment files
-  database: # the data directory for maniadb
+  database: # the data directory for mariadb
   specify6: # provides Specify 6 files to Specify 7 and the web server
   static-files: # provides Specify 7 static files to the web server
